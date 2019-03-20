@@ -1,6 +1,6 @@
 <template>
   <div class="looking">
-    <div class="ml" @scroll="mu()" ref="liu" v-show="mulus">
+    <div class="ml" @scroll="gun()" ref="liu" v-show="mulus">
       <ul class="" ref="nh">
         <li v-for="(look, index) in directory" :key="index">{{look}}</li>
       </ul>
@@ -64,7 +64,7 @@ export default {
         readePattern: 0,
         fontColor: '#5c5d58',
         background: '#eee6dd',
-        mulus:false,//目录
+        mulus:true,//目录
         shezhi:false,//设置页
     };
   },
@@ -94,6 +94,7 @@ export default {
       
       if (g + h == nh) {
           this.loadMore()
+      this.get()
       // console.log('2333');
       }
     },
@@ -111,24 +112,24 @@ export default {
           }
         );   
     },
-    get() {
+    m(){
       let arr = [];
       let t = this.directory.length;
-      var q = [];
-      // let q=50;
-      let i;
       if (t == 0) {
         t = 50;
       } else {
         t = t + 50;
-      }                    
+      }             
+    },
+    get() {
+      var q = [];       
       const url=`/api/btoc/${this.bookid}?view=chapters&channel=mweb`//根据书源id找章节
       // const url = `/api/mix-atoc/${this.id}?view=chapters`;//迫不得已才用的api
       this.axios.get(url).then(
         response => {
-          for (i = 0; i < t; i++) {
-            arr.push(response.data.chapters[i].title);
-            q.push(encodeURIComponent(response.data.chapters[i].link)); //进行解码
+          for (let i = 0; i < t; i++) {
+            arr.push(response.data.chapters[this.chapter].title);
+            q.push(encodeURIComponent(response.data.chapters[this.chapter].link)); //进行解码
           }
           this.directory = arr;
           this.booklinks.push(...q);
@@ -146,7 +147,6 @@ export default {
         res => {
               this.bookContent =res.data.chapter
               // console.log(this.bookContent,2333);
-              
         },
         err => {
           alert(err);
@@ -192,11 +192,11 @@ export default {
       }
 console.log(this.shezhi,'触发了');
     },
-    mu(){
-      this.get()
-console.log('触发了');
+//     mu(){
+//       this.get()
+// console.log('触发了');
 
-    },
+//     },
     mulu(){
 console.log('6666');
       this.mulus=true
@@ -219,9 +219,9 @@ console.log('6666');
     top: 0rem;
     left: 0;
     z-index: 22;
-    width: 100%;
+    width: 50%;
     height: 100%;
-    background: #fff;
+    // background: #fff;
     overflow: auto;
   }
   .reading{
@@ -262,7 +262,7 @@ console.log('6666');
       background: #000;
       text-align: center;
       color: #fff;
-      span{
+      div{
         flex: 1;
         line-height: 2rem;
       }

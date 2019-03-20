@@ -5,7 +5,7 @@
     <div>
       <div class="list">
         <div class="cover">
-          <img class="auto-img" :src="lianjie+fiction.cover" alt>
+          <img class="auto-img" :src="img+fiction.cover" alt="">
         </div>
         <div class="detail">
           <h3 class="bookname">{{fiction.title}}</h3>
@@ -51,7 +51,8 @@ export default {
   data() {
     return {
       shu: "书籍详情",
-      lianjie: "http://statics.zhuishushenqi.com",
+      // lianjie: "//statics.zhuishushenqi.com",
+      img: '//statics.zhuishushenqi.com',
       bookid: "",
       fiction: "",
       upDate: "",
@@ -80,7 +81,7 @@ export default {
       // console.log(title);
       
       this.$router.push({
-            path: `/looking/${title}`,
+            path: `/Lookingbook/${title}`,
              query: {id:id}
           });
     },
