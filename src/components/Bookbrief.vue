@@ -71,7 +71,8 @@
   display: inline-block;
   box-sizing: border-box;
   padding: 1rem 1rem 1rem 0;
-  border-bottom: 1px solid rgb(206, 206, 206);
+  // border-bottom: 1px solid rgb(206, 206, 206);
+      border-bottom: 0.013333rem solid #f5f5f5;
   .cover {
     float: left;
     width: 3.6rem;
@@ -79,8 +80,8 @@
     margin-right: 1rem;
   }
   .detail{
-  height: 100%;
-  div{
+    height: 100%;
+    div{
       font-size: 13px;
       line-height: 1.2rem;
         white-space: nowrap;
@@ -88,15 +89,21 @@
         overflow: hidden;
         color: #666;
 
-  }
-  .bookname{
-       font-weight: 800;
-        font-size: 14px; /* no*/
-        line-height: 1.2rem;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-  }
+    }
+    .bookname{
+        font-weight: 800;
+          font-size: 14px; /* no*/
+          line-height: 1.2rem;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+    }
+    .desc{
+      font-size: 12px;
+      .c-rq{
+        color: #f00;
+      }
+    }
   }
 }
 

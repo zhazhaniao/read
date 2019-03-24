@@ -171,6 +171,9 @@ export default {
           this.axios.get(url).then(
             res => {
             this.bookContent = res.data.chapter;
+            console.log(res.data.chapter,'233');
+            console.log(this.bookContent,'QAQ');
+            
             this.$refs.liu.scrollTop = 0;
             this.sao=false
             },
@@ -291,7 +294,7 @@ export default {
         font-size: 15px;
         font-weight: 700;
         text-align: center;
-      line-height: 1.3rem;
+        line-height: 1.3rem;
       }
       
 
@@ -332,22 +335,22 @@ export default {
     }
     }
     .xuanze{
-    width: 100%;
-    display: flex;
-    span{
-        // display: inline-block;
-        flex: 1;
-        height: 2rem;
-        line-height: 2rem;
-        box-sizing: border-box;
-        text-align: center;
-        color: #fff;
-    }
-    span:nth-child(2) {
-        color: #a8a8a8;
-        text-align: center;
-        font-size: .4rem;
-    }
+      width: 100%;
+      display: flex;
+      span{
+          // display: inline-block;
+          flex: 1;
+          height: 2rem;
+          line-height: 2rem;
+          box-sizing: border-box;
+          text-align: center;
+          color: #fff;
+      }
+      span:nth-child(2) {
+          color: #a8a8a8;
+          text-align: center;
+          font-size: .4rem;
+      }
     }
 }
 .loding{

@@ -100,7 +100,10 @@ export function getRank(categoryid){
 
   })
 }
-
+//获取书籍评论
+export function bookComments(id) {
+  return fetch({url:`/api/post/review/best-by-book?book=${id}&limit=10`})
+}
 
 
 

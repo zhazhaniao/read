@@ -81,7 +81,7 @@ export default {
     this.axios.get(url).then(
       response => {
         this.looklist = response.data.books;
-        
+        console.log(this.looklist);
       },
       err => {
         alert(err);
@@ -116,7 +116,7 @@ export default {
         for (let i = 1; i <= 10; i++) {
           to=this.go + i;
         }
-          // console.log(to);
+          
          const url = `/api/book/by-categories?gender=${this.gender}&type=${
           this.type
         }&major=${this.major}&minor=&start=${this.go}&limit=${to}`;
@@ -185,7 +185,7 @@ export default {
   position: relative;
   top: 0;
   left: 0;
-  height: 20%;
+  height: 9rem;
   background: #fff;
 }
 .tybar {

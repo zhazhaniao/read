@@ -29,11 +29,11 @@ export default {
     return {
       current: 0,
       navList: [
-        { title: "精选" },
+        { title: "精选",to:"chosen"},
         { title: "VIP",to:"bookintroduction"
         },
         { title: "分类",to:"category"},
-        { title: "排行" }
+        { title: "排行",to:"ranking"}
       ]
     };
   },

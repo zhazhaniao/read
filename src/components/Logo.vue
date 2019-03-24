@@ -5,7 +5,7 @@
         <div class>
           <span class="icon"></span>
         </div>
-      </div>
+  </div>
 </template>
 <script type="text/javascript">
   export default {
@@ -39,6 +39,7 @@
   // position: relative;
   // width: 100%;
   height: 2.5rem;
+  padding: 0 0.5rem;
   line-height: 2.5rem;
   overflow: hidden;
   display: flex;
