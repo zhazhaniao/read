@@ -39,6 +39,13 @@
           <div class="sj" @click="setBookLocalStorage()">{{flag ? '不追了' : '追更新'}}</div>
           <div class="read" @click="goReadBooks(fiction)">开始阅读</div>
         </div> -->
+        <div class="tag">
+          <ul>
+            <li v-for="(qian, index) in biaoqian" :key="index">
+              {{qian}}
+            </li>
+          </ul>
+        </div>
         <div class="introduction" ref="wenzi">
           {{fiction.longIntro}}
          <div class="btm" @click="txts()" :class="[t?'icon-point-down':'icon-point-up']"
@@ -86,10 +93,11 @@ export default {
       fiction: "",
       upDate: "",
       isSerial:"",//是否完结
+      biaoqian:"",
       flag: false,
       t:true,
       comments:"",//书评
-      ping:""
+      ping:""//?日期有问题?
     };
   },
   created() {
@@ -100,6 +108,7 @@ export default {
         this.fiction = response.data;
         this.upDate = this._time(response.data.updated);
         this.isSerial=response.data.isSerial;
+        this.biaoqian=response.data.tags
         console.log(response.data, "QAQ");
       },
       err => {
@@ -254,6 +263,24 @@ export default {
           font-size: 12px; /* no*/
           color: #999;
           margin-bottom: 20px;
+        }
+      }
+      .tag{
+        width: 100%;
+        ul{
+          display: flex;
+          flex-wrap: wrap;
+          padding-top: 1rem;
+          li{
+            // width:6rem;
+            height: 1.6rem;
+            margin: 0 0.5rem;
+            padding: 0 1rem;
+            border-radius: 1.6rem;
+            font-size: 15px;
+            line-height: 1.6rem;
+            border: 1px solid #ebebeb;
+          }
         }
       }
       .introduction{

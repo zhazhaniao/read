@@ -85,7 +85,13 @@ export function getSearchResult(word){
     url:'/api/book/fuzzy-search?'+query,
   })
 }
-
+//搜索自动补充/api/book/auto-complete?query=%E6%96%97%E7%BD%97
+export function getSupplement(word){
+  let zd = qs.stringify(word);
+  return fetch({
+    url:'/api/book/auto-complete?'+zd,
+  })
+}
 //获取热搜词
 export function getSearchHotwords(){
   return fetch({

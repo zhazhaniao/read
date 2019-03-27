@@ -33,6 +33,8 @@ body {
 ol, ul {
     list-style: none;
 }
+
+input{outline:none;}
 blockquote, q {
     quotes: none;
 }

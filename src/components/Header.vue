@@ -3,12 +3,12 @@
       <div class="logotop">
           <div>nan</div>
           <div class="logo"></div>
-          <div class="sicon">
+          <div class="sicon" @click="so">
               <span class="icon"></span>
           </div>
       </div>
     <div class="nav">
-      <div
+      <!-- <div
         class="navlist"
         v-for="(nav, index) in navList"
         :key="index"
@@ -17,9 +17,37 @@
       >
         {{nav.title}}
         <span v-show="index==1&&index==current">(免费看)</span>
-      </div>
+      </div> -->
+      <router-link tag="div" class="navlist" to="/chosen">精选</router-link>
+      <router-link tag="div" class="navlist" to="/vip" @click.native="active">
+      {{vip ? 'VIP(免费看)' : 'VIP'}}
+      <!-- VIP -->
+      <!-- <span v-show="index==1&&index==current">(免费看)</span> -->
+      </router-link>
+      <router-link tag="div" class="navlist" to="/category">分类</router-link>
+      <router-link tag="div" class="navlist" to="/ranking">排行</router-link>
     </div>
+     
   </div>
+  <!-- <div class="header">
+    <span class="header-txt">
+      Fucking小说
+    </span>
+    <router-link to="/mybooks">
+    <div class="header-sj" >
+      <i class="fa fa-book"></i>
+      <span>书架</span>
+    </div>
+    </router-link>
+    <div class="header-tab">
+     
+      <router-link tag="div" class="navlist" to="/chosen" @click.native="active">精选</router-link>
+      <router-link tag="div" class="navlist" to="/bookintroduction" @click.native="active">VIP</router-link>
+      <router-link tag="div" class="navlist" to="/category" @click.native="active">分类</router-link>
+      <router-link tag="div" class="navlist" to="/ranking" @click.native="active">排行</router-link>
+     
+    </div>
+  </div> -->
 </template>
 <script type="text/javascript">
 export default {
@@ -34,18 +62,36 @@ export default {
         },
         { title: "分类",to:"category"},
         { title: "排行",to:"ranking"}
-      ]
+      ],
+      vip:false,
     };
   },
   created() {},
   computed: {},
   methods: {
-    active(index,nav) {
-      this.current = index;
-      console.log(nav.to);
-      
-     this.$router.push({
-        path: `${nav.to}`,
+    active(e) {
+      // this.current = index;
+      // console.log(e,'<<<<<<<23333');
+      // if (e.target.innerText=="VIP") {
+      //   e.target.innerText="VIP(免费看)"
+      // }else{
+      //   e.target.innerText="VIP"
+      // }
+    //  this.$router.push({
+    //     path: `${nav.to}`,
+    //     // query: {
+    //     //    id,
+    //     //   gender: 'male',
+    //     //   type: 'hot',
+    //     //   major: name,
+    //     //   start: '0',
+    //     //   limit: '20'
+    //     // }
+    //   });
+    },
+    so(){
+      this.$router.push({
+        path: "/sosuo",
         // query: {
         //    id,
         //   gender: 'male',
@@ -57,6 +103,19 @@ export default {
       });
     }
   },
+ 
+  watch: {
+ 
+    $route(to, from) {
+        //  console.log(this.$route,'<<<<<<<<');
+         if (this.$route.path=="/bookintroduction") {
+          this.vip=true
+        //  console.log('<<<<<<<<');
+         }else{
+           this.vip=false
+         }
+    }
+},
   components: {}
 };
 </script>
@@ -113,4 +172,24 @@ background-size: 100% 100%;
     color: #fff;
   }
 }
+.header-tab{
+  display: flex;
+  .tab-item{
+    flex: 1;
+    font-size: 25px;
+    text-align: center;
+    line-height: 80px;
+    background: #409EFF;
+    color: #d6d6d6;
+  }
+  .active {
+    color: #fff;
+  }
+}
+     
+        
+      // .router-link-active{
+      //  color #fff
+      // }
+       
 </style>

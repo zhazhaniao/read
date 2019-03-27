@@ -48,6 +48,8 @@
         //   const src=`/api/cats/lv2/statistics`
       getRankCategory().then((res) => {
           if (res.data.ok) {
+            console.log(res.data,'2333');
+            
             this.femaleRank = res.data.female.slice(0, 7);
             this.maleRank = res.data.male.slice(0, 7)
           }

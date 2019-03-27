@@ -1,19 +1,11 @@
 <template>
   <div>
     <div class="banner">
-      <ul
-        ref="ul"
-        @transitionend="w"
-        @touchstart="ontouchstart"
-        @touchmove="ontouchmove"
-        @touchend="ontouchend"
-      >
-        <li v-for="(item,index) in showPicPath" :key="index" ref="tu">
-          <img class="auto-img" :src="item" alt>
-        </li>
-      </ul>
-      <!-- <button class="btn" @click="nextPic">next</button>
-      <button class="q" @click="prevPic">shang</button>-->
+      <mt-swipe :auto="4000" :speed="1000">
+        <mt-swipe-item v-for="(item, index) in banner" :key="index">
+          <img class="auto-img" :src="item" alt="">
+        </mt-swipe-item>
+      </mt-swipe>
     </div>
     <div class="books">
       <div class="title">
@@ -26,7 +18,7 @@
           <!-- <li v-for="(book, index) in femaleList" :key="index"></li> -->
         </ul>
       </div>
-      <div class="see-more">查看更多></div>
+      <div class="see-more" @click="gengduonan">查看更多></div>
     </div>
     <div class="books">
       <div class="title">
@@ -39,7 +31,7 @@
           <!-- <li v-for="(book, index) in femaleList" :key="index"></li> -->
         </ul>
       </div>
-      <div class="see-more">查看更多></div>
+      <div class="see-more" @click="gengduonv">查看更多></div>
     </div>
   </div>
 </template>
@@ -56,11 +48,8 @@ export default {
           'http://statics.zhuishushenqi.com/recommendPage/153139416791777',
           'http://statics.zhuishushenqi.com/recommendPage/153139401503529',
           'http://statics.zhuishushenqi.com/recommendPage/153139406636473'],
-      currentIndex: 0,
-       startX:0,//开始触摸的位置
-        moveX:0,//滑动时的位置
-        endX:0,//结束触摸的位置
-        width:0,//移动距离
+     jianan:10,
+     jianv:10,
          maleList: [],
         femaleList: [],
         a: ""
@@ -68,7 +57,7 @@ export default {
   },
   created() {
     this.rink()
-    this.go()
+    // this.go()
     
   },
   computed: {
@@ -78,11 +67,12 @@ export default {
     }
   },
   methods: {
+    
       rink(){
           //排行请求，id去这找http://api.zhuishushenqi.com/ranking/gender
         getRank('54d42d92321052167dfb75e3').then(res => {
             if (res.data.ok) {
-                this.maleList =res.data.ranking.books.slice(0, 5)
+                this.maleList =res.data.ranking.books.slice(0, 10)
                 // Indicator.close()
             }
           }, 
@@ -92,7 +82,7 @@ export default {
         );
         getRank('54d43437d47d13ff21cad58b').then(res => {
             if (res.data.ok) {
-                this.femaleList =res.data.ranking.books.slice(0, 5)
+                this.femaleList =res.data.ranking.books.slice(0, 10)
                 // Indicator.close()
             }
           }, 
@@ -101,53 +91,38 @@ export default {
             }
         );
       },
-      
-    w() {
-                let ul = this.$refs.ul
-   if (this.currentIndex>= this.banner.length) {
-                        ul.style.transition = 'none'
-                        this.currentIndex = 0
-                        let offsetX = -(this.currentIndex + 1) * this.width
-                        ul.style.transform = `translateX(${offsetX}px)`
-                    }
-    },
-    nextPic(evt) {
-                this.currentIndex++
-                let ul = this.$refs.ul
-                this.width=this.$refs.ul.clientWidth/10
-                ul.style.transition = 'all .6s linear'
-                let offsetX = -(this.currentIndex + 1) * this.width
-                ul.style.transform = `translateX(${offsetX}px)`
-            },
-    prevPic() {
-      this.currentIndex--;
-      let ul = this.$refs.ul;
-      let width = this.$refs.tu[0].offsetWidth;
-      ul.style.transition = "all .6s linear";
-      let offsetX = -(this.currentIndex + 1) * width;
-      ul.style.transform = `translateX(${offsetX}px)`;
-    },
-    ontouchstart(e){
-  this.startX = e.touches[0].pageX;
-    },
-    ontouchmove(e){
-      let ul = this.$refs.ul;
-       this.moveX = e.touches[0].pageX - this.startX;
-          //实时的滑动的距离-起始位置=实时移动的位置
-        // this.disX = this.moveX-this.startX;
-         if(this.moveX<0 || this.moveX == 0) {
-            ul.style.transform = `translateX(${this.moveX+this.endX}px)`;
-        }else if(this.moveX>0){
-            ul.style.transform = `translateX(${this.moveX+this.endX}px)`;
-        }
-    },
-    ontouchend(){
-      let ul = this.$refs.ul;
-      let q=ul.style.transform
-      let s=q.match(/translateX\((.*)\)/)[1]
-      this.endX=parseInt(s)
-        // console.log(q.match(/\(\[0]\p/),'ok');
-    },
+       gengduonan(){
+         
+        getRank('54d42d92321052167dfb75e3').then(res => {
+
+            if (res.data.ok) {
+                this.maleList.push(...res.data.ranking.books.slice(this.jia,(this.jianan+10)))
+               console.log(this.maleList,'QAQ');
+                // Indicator.close()
+            }
+            this.jianan+=10
+          }, 
+            err => {
+            alert(err);
+            }
+        );
+      },
+       gengduonv(){
+         
+        getRank('54d43437d47d13ff21cad58b').then(res => {
+
+            if (res.data.ok) {
+                this.femaleList.push(...res.data.ranking.books.slice(this.jianv,(this.jianv+10)))
+               console.log(this.femaleList,'QAQ');
+                // Indicator.close()
+            }
+            this.jianv+=10
+          }, 
+            err => {
+            alert(err);
+            }
+        );
+      },
     go(){
         this.a = setInterval(()=>{
             this.nextPic()
@@ -215,17 +190,5 @@ export default {
   margin: 0 0.5rem;
   // padding: 20px 0;
 }
-.btn {
-  position: fixed;
-  top: 24rem;
-  left: 3rem;
-  z-index: 30;
-}
 
-.q {
-  position: fixed;
-  top: 24rem;
-  left: 6rem;
-  z-index: 30;
-}
 </style>

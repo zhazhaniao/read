@@ -11,20 +11,44 @@ export default new Router({
       path: '/',
       redirect: '/chosen'
     },
+    {
+      path: '/vip',
+      name: 'vip',
+      component: () => import('./views/Vip.vue'),
+    },
+    {//搜索
+      path: '/sosuo',
+      name: 'sosuo',
+      component: () => import('./views/Sosuo.vue'),
+    },
+    {
+      path:'/gorun',
+      name:'/gorun',
+      component: () => import('./views/Gorun.vue'),
+    },
     {//精选页
       path: '/chosen',
       name: 'chosen',
-      component: () => import('./views/Chosen.vue')
+      component: () => import('./views/Chosen.vue'),
+      // meta: {
+      //   keepAlive: true // 需要被缓存
+      // }
     },
     {//分类页
       path: '/category',
       name: 'category',
-      component: Category
+      component: Category,
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
     },
     {//书类列表页 
       path: `/bookshelf`,
       name: 'bookshelf',
-      component: () => import('./views/Bookshelf.vue')
+      component: () => import('./views/Bookshelf.vue'),
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
     },
     {//详情列表页 
        path: '/book/:id',
@@ -41,7 +65,10 @@ export default new Router({
     {
       path:`/ranking`,
       name:'ranking',
-      component: () => import('./views/Ranking.vue')
+      component: () => import('./views/Ranking.vue'),
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
     },{//详情列表页 
       path: '/ranking/:id',
      // component: resolve => require(['./views/Bookintroduction'], resolve),
