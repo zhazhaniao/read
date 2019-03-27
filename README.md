@@ -1,4 +1,4 @@
-# 追书神器
+# 追书神器 vue3.0
 
 ## Project setup
 ```
