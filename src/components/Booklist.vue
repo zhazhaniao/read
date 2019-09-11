@@ -1,5 +1,5 @@
 <template>
-<!-- 书籍列表组件-->
+  <!-- 书籍列表组件-->
   <div class="case" @scroll="scrollclass()" ref="liu">
     <ul class ref="nh">
       <Bookbrief :book="look" v-for="(look, index) in booklist" :key="index"></Bookbrief>
@@ -7,23 +7,17 @@
   </div>
 </template>
 <script type="text/javascript">
-import Bookbrief from './Bookbrief'
+import Bookbrief from "./Bookbrief";
 export default {
   name: "Booklist",
   props: {
     booklist: {}
   },
   data() {
-    return {
-     
-    };
+    return {};
   },
-  created() {
-
-  },
-  computed: {
-   
-  },
+  created() {},
+  computed: {},
   methods: {
     scrollclass() {
       let h = this.$refs.liu.offsetHeight; //可视高度
@@ -32,27 +26,27 @@ export default {
       if (g + h == nh) {
         this.$emit("jiazai", "");
       }
-    },
-
+    }
   },
   components: {
-      Bookbrief
+    Bookbrief
   }
 };
 </script>
+
+
 <style lang="scss" rel="stylesheet/scss" scoped>
 .case {
   position: absolute;
   top: 0;
   left: 0;
-
   width: 100%;
   height: 100%;
   overflow: auto;
 }
+
 .case > ul {
   // padding-left: 1rem;
   margin-left: 1rem;
 }
-
 </style>

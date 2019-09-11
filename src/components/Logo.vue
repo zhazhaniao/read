@@ -1,39 +1,34 @@
 <template>
- <div class="name">
-        <div class="icon-arrow-left2" @click="fanhui">返回</div>
-        <div class="logo">{{logo}}</div>
-        <div class>
-          <span class="icon"></span>
-        </div>
+  <div class="name">
+    <div class="icon-arrow-left2" @click="fanhui">返回</div>
+    <div class="logo">{{logo}}</div>
+    <div class>
+      <span class="icon"></span>
+    </div>
   </div>
 </template>
 <script type="text/javascript">
-  export default {
-    name: "Logo",
-    props: {
-      logo:'',
-      // brief:{},
-    },
-    data() {
-        return {
-      
-        }
-    },
-    created() {
-    },
-    computed:{
-      
-    },
-    methods: {
-      fanhui() {
+export default {
+  name: "Logo",
+  props: {
+    logo: ""
+    // brief:{},
+  },
+  data() {
+    return {};
+  },
+  created() {},
+  computed: {},
+  methods: {
+    fanhui() {
       this.$router.go(-1);
     }
-    },
-    components:{
-      
-    },
-  }
+  },
+  components: {}
+};
 </script>
+
+
 <style lang="scss" rel="stylesheet/scss" scoped>
 .name {
   // position: relative;
@@ -46,20 +41,24 @@
   background: #000;
   color: #fff;
 }
+
 .name > div {
   display: inline-block;
   flex: 1;
   // float: left;
 }
+
 .name > div:nth-child(1) {
   margin: 0.6rem 0rem 0.6rem 0;
 }
+
 .name > div:nth-child(2) {
   padding: 0;
   font-size: 16px;
   font-weight: 700;
   text-align: center;
 }
+
 .icon {
   width: 1.3rem;
   height: 1.3rem;

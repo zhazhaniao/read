@@ -1,16 +1,18 @@
 <template>
-<!-- 书类列表页 -->
+  <!-- 书类列表页 -->
   <div class="bookbox">
     <div class="nav">
       <Logo :logo="major"></Logo>
       <div v-show="zhan">
         <div>
           <ul class="tybar">
-            <li class="tybarlis" v-for="(ty, t) in largeTypes" :key="t"
+            <li
+              class="tybarlis"
+              v-for="(ty, t) in largeTypes"
+              :key="t"
               @click="typ(ty,t)"
-              :class="{'active':t===largeTypeIndex}">
-              {{ty.name}}
-              </li>
+              :class="{'active':t===largeTypeIndex}"
+            >{{ty.name}}</li>
           </ul>
         </div>
         <div class="filter-item">
@@ -18,9 +20,10 @@
             <ul>
               <li
                 v-for="(minor, f) in leilist"
-                :key="f" :class="{'active':f===smallTypeIndex}"
-               @click="setSmallType(minor,f)">{{minor}}
-                </li>
+                :key="f"
+                :class="{'active':f===smallTypeIndex}"
+                @click="setSmallType(minor,f)"
+              >{{minor}}</li>
             </ul>
           </div>
         </div>
@@ -54,7 +57,7 @@ export default {
       ],
       looklist: "",
       topname: "",
-      lianjie:"",
+      lianjie: "",
       go: "",
       // to:40,
       gender: "", //喜好（男女漫画出版）
@@ -74,9 +77,7 @@ export default {
     this.major = this.$route.query.major;
     // this.start = this.$route.query.start;
     // this.limit = this.$route.query.limit;
-     const url = `/api/book/by-categories?gender=${this.gender}&type=${
-        this.type
-      }&major=${this.major}&minor=${this.minor}&start=0&limit=20`;
+    const url = `/api/book/by-categories?gender=${this.gender}&type=${this.type}&major=${this.major}&minor=${this.minor}&start=0&limit=20`;
 
     this.axios.get(url).then(
       response => {
@@ -111,25 +112,23 @@ export default {
   methods: {
     load() {
       setTimeout(() => {
-        this.go = this.looklist.length-1;
+        this.go = this.looklist.length - 1;
         let to;
         for (let i = 1; i <= 10; i++) {
-          to=this.go + i;
+          to = this.go + i;
         }
-          
-         const url = `/api/book/by-categories?gender=${this.gender}&type=${
-          this.type
-        }&major=${this.major}&minor=&start=${this.go}&limit=${to}`;
+
+        const url = `/api/book/by-categories?gender=${this.gender}&type=${this.type}&major=${this.major}&minor=&start=${this.go}&limit=${to}`;
         this.axios.get(url).then(
           response => {
-            if (response.data.books == '') { 
+            if (response.data.books == "") {
               this.wu = true;
               return;
             }
             // console.log(response.data.books,'233333');
-           
+
             this.looklist.push(...response.data.books);
-          console.log(this.looklist,'QAQ');
+            console.log(this.looklist, "QAQ");
             // this.tu+=20
           },
           err => {
@@ -139,18 +138,15 @@ export default {
         // this.loading = false;
       }, 100);
     },
-   setSmallType(minor, f){
-
-        this.smallTypeIndex = f
-      this.minor = minor
+    setSmallType(minor, f) {
+      this.smallTypeIndex = f;
+      this.minor = minor;
     },
     typ(ty, t) {
-      this.type = ty.type
+      this.type = ty.type;
 
-      this.largeTypeIndex = t
-      const url = `/api/book/by-categories?gender=${this.gender}&type=${
-        this.type
-      }&major=${this.major}&minor=${this.minor}&start=0&limit=20`;
+      this.largeTypeIndex = t;
+      const url = `/api/book/by-categories?gender=${this.gender}&type=${this.type}&major=${this.major}&minor=${this.minor}&start=0&limit=20`;
 
       this.axios.get(url).then(
         response => {
@@ -173,6 +169,7 @@ export default {
   }
 };
 </script>
+
 <style lang="scss" rel="stylesheet/scss" scoped>
 .bookbox {
   position: fixed;
@@ -181,6 +178,7 @@ export default {
   width: 100%;
   height: 100%;
 }
+
 .nav {
   position: relative;
   top: 0;
@@ -188,6 +186,7 @@ export default {
   height: 9rem;
   background: #fff;
 }
+
 .tybar {
   height: 3rem;
   color: #666666;
@@ -204,15 +203,18 @@ export default {
   width: 100%;
   background: #999;
 }
+
 .filter-item {
   position: relative;
   width: 100%;
   height: 3rem;
   line-height: 3rem;
   overflow: hidden;
+
   .inner {
     overflow-x: auto;
   }
+
   .inner ul {
     width: auto;
     height: 100%;
@@ -220,6 +222,7 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+
   .inner ul li {
     display: inline-block;
     height: 100%;
@@ -227,6 +230,7 @@ export default {
     font-size: 13px;
   }
 }
+
 .bookcase {
   position: relative;
   bottom: 0;
@@ -234,6 +238,7 @@ export default {
   height: 80%;
   // background: rgb(150, 148, 148);
 }
+
 .active {
   color: #b93321;
 }

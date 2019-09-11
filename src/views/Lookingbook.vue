@@ -6,9 +6,13 @@
         <li v-for="(look, index) in chapterList" :key="index" @click="gotosee(index)">{{look}}</li>
       </ul>
     </div>
-    <div class="looking" @click="shezhi()"> 
-      <div class="seeing" @scroll="rolling()" ref="liu" 
-        :style="{color:fontColor,background:background}">
+    <div class="looking" @click="shezhi()">
+      <div
+        class="seeing"
+        @scroll="rolling()"
+        ref="liu"
+        :style="{color:fontColor,background:background}"
+      >
         <div class="txt" ref="nh">
           <h1 class="book-title">{{bookContent.title}}</h1>
           <div class="book-inner" v-html="bookChaptersBody(bookContent.cpContent)"></div>
@@ -17,18 +21,21 @@
       <div class="loding" v-show="sao">骚等······</div>
       <div class="setting" v-show="shezhis">
         <div class="readSet-item">
-         <div class="icon-arrow-left2" @click="fanhui()">返回</div>
-         <div class="logo">{{bookName}}</div>
-         <div class>
-         <p class="icon-menu float-right"></p>
-         </div>
+          <div class="icon-arrow-left2" @click="fanhui()">返回</div>
+          <div class="logo">{{bookName}}</div>
+          <div class>
+            <p class="icon-menu float-right"></p>
+          </div>
         </div>
         <div class="readSet-btn">
-          <div class="moshi"> 
-            <span class="btn" v-for="(item,index) in pattern" :key="index" 
-            :class="{active:readePattern===index}"
-            @click.stop="setPattern(item,index)">{{item.item}}
-            </span>
+          <div class="moshi">
+            <span
+              class="btn"
+              v-for="(item,index) in pattern"
+              :key="index"
+              :class="{active:readePattern===index}"
+              @click.stop="setPattern(item,index)"
+            >{{item.item}}</span>
           </div>
           <div class="xuanze">
             <span @click="previous">上一章</span>
@@ -75,9 +82,9 @@ export default {
       readePattern: 0,
       fontColor: "#5c5d58",
       background: "#eee6dd",
-      mulus: false ,//目录
-      shezhis:false,//设置
-      sao:false,//加载中
+      mulus: false, //目录
+      shezhis: false, //设置
+      sao: false //加载中
     };
   },
   created() {
@@ -146,7 +153,8 @@ export default {
         }
       );
     },
-    see() {//请求章节方法
+    see() {
+      //请求章节方法
       const url = `/content/chapter/${this.booklinks[this.chapter]}`;
       this.axios.get(url).then(
         res => {
@@ -164,40 +172,43 @@ export default {
 
         return;
       }
-      this.sao=true
+      this.sao = true;
       this.chapter++;
       const url = `/content/chapter/${this.booklinks[this.chapter]}`;
-      setTimeout(()=>{
-          this.axios.get(url).then(
-            res => {
+      setTimeout(() => {
+        this.axios.get(url).then(
+          res => {
             this.bookContent = res.data.chapter;
-            console.log(res.data.chapter,'233');
-            console.log(this.bookContent,'QAQ');
-            
+            console.log(res.data.chapter, "233");
+            console.log(this.bookContent, "QAQ");
+
             this.$refs.liu.scrollTop = 0;
-            this.sao=false
-            },
-            err => {
+            this.sao = false;
+          },
+          err => {
             alert(err);
-            }
+          }
         );
-      },1000)
-      
+      }, 1000);
     },
-    shezhi(){//打开设置页面
-        this.shezhis=!this.shezhis
+    shezhi() {
+      //打开设置页面
+      this.shezhis = !this.shezhis;
     },
-    fanhui() {//退出阅读
+    fanhui() {
+      //退出阅读
       this.$router.go(-1);
     },
-    name() {//点击名字返回
+    name() {
+      //点击名字返回
       this.mulus = !this.mulus;
     },
-    gotosee(index){//目录选择那一章
-        this.chapter=index
-        this.see()
-        this.mulus=!this.mulus
-        this.$refs.liu.scrollTop = 0;
+    gotosee(index) {
+      //目录选择那一章
+      this.chapter = index;
+      this.see();
+      this.mulus = !this.mulus;
+      this.$refs.liu.scrollTop = 0;
     },
     setPattern(item, index) {
       //阅读模式设置
@@ -208,18 +219,21 @@ export default {
       this.$refs.liu.style.color = this.fontColor;
       this.$refs.liu.style.background = this.background;
     },
-    previous(){//上一章
-        this.chapter-=1
-        this.see()
-        this.$refs.liu.scrollTop = 0;
+    previous() {
+      //上一章
+      this.chapter -= 1;
+      this.see();
+      this.$refs.liu.scrollTop = 0;
     },
-    lists(){//去目录
-          this.mulus=!this.mulus
+    lists() {
+      //去目录
+      this.mulus = !this.mulus;
     },
-    next(){//下一章
-        this.chapter+=1
-        this.see()
-        this.$refs.liu.scrollTop = 0;
+    next() {
+      //下一章
+      this.chapter += 1;
+      this.see();
+      this.$refs.liu.scrollTop = 0;
     }
   },
   components: {}
@@ -234,18 +248,18 @@ export default {
   height: 100%;
 }
 .muli {
-    position: relative;
+  position: relative;
   width: 100%;
   height: 100%;
   z-index: 20;
   background: rgb(255, 255, 255);
-  ul{
-      position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
+  ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
   }
 }
 .looking {
@@ -273,99 +287,97 @@ export default {
     margin-bottom: 25px;
   }
 }
-.readSet-item{
-      position: relative;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 2.5rem;
-      box-sizing: border-box;
-      padding: 0.6rem 0.6rem;
-      overflow: hidden;
-      display: flex;
-    background-color: rgba(50,51,52,.9);
-      color: #fff;
-      div{
-        display: inline-block;
-        flex: 1;
-      }
-      div:nth-child(2) {
-        padding: 0;
-        font-size: 15px;
-        font-weight: 700;
-        text-align: center;
-        line-height: 1.3rem;
-      }
-      
-
-    }
-.readSet-btn{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 1rem;
-    z-index: 100;
-    background-color: rgba(50,51,52,.9);
-    transition: all .2s ease;
-    .moshi{
+.readSet-item {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2.5rem;
+  box-sizing: border-box;
+  padding: 0.6rem 0.6rem;
+  overflow: hidden;
+  display: flex;
+  background-color: rgba(50, 51, 52, 0.9);
+  color: #fff;
+  div {
+    display: inline-block;
+    flex: 1;
+  }
+  div:nth-child(2) {
+    padding: 0;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3rem;
+  }
+}
+.readSet-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  z-index: 100;
+  background-color: rgba(50, 51, 52, 0.9);
+  transition: all 0.2s ease;
+  .moshi {
     width: 100%;
     display: flex;
     margin-bottom: 1rem;
-    .btn{
-        color: #fff;
-        border: 1px solid #535353;
-        border-radius: 0.2rem;
+    .btn {
+      color: #fff;
+      border: 1px solid #535353;
+      border-radius: 0.2rem;
     }
-    span{
-        // display: inline-block;
-        flex: 1;
-        height: 2rem;
-        box-sizing: border-box;
-        line-height: 2rem;
-        text-align: center;
+    span {
+      // display: inline-block;
+      flex: 1;
+      height: 2rem;
+      box-sizing: border-box;
+      line-height: 2rem;
+      text-align: center;
     }
     span:nth-child(2) {
-        margin: 0 1rem;
+      margin: 0 1rem;
     }
-    .active{
-        color: #b93221;
-        border: 1px solid #b93221;
+    .active {
+      color: #b93221;
+      border: 1px solid #b93221;
     }
+  }
+  .xuanze {
+    width: 100%;
+    display: flex;
+    span {
+      // display: inline-block;
+      flex: 1;
+      height: 2rem;
+      line-height: 2rem;
+      box-sizing: border-box;
+      text-align: center;
+      color: #fff;
     }
-    .xuanze{
-      width: 100%;
-      display: flex;
-      span{
-          // display: inline-block;
-          flex: 1;
-          height: 2rem;
-          line-height: 2rem;
-          box-sizing: border-box;
-          text-align: center;
-          color: #fff;
-      }
-      span:nth-child(2) {
-          color: #a8a8a8;
-          text-align: center;
-          font-size: .4rem;
-      }
+    span:nth-child(2) {
+      color: #a8a8a8;
+      text-align: center;
+      font-size: 0.4rem;
     }
+  }
 }
-.loding{
-    position: fixed;
-    top: 50%;
-    left: calc(50% - 75px);
-    // right: 0;
-    // bottom: 0;
-    // margin: auto;
-    width: 150px;
-    height: 3rem;
-    color: #fff;
-    background: rgba(50,51,52,.6);
-    font-size: 30px;
-    text-align: center;
-    line-height: 3rem;
+.loding {
+  position: fixed;
+  top: 50%;
+  left: calc(50% - 75px);
+  // right: 0;
+  // bottom: 0;
+  // margin: auto;
+  width: 150px;
+  height: 3rem;
+  color: #fff;
+  background: rgba(50, 51, 52, 0.6);
+  font-size: 30px;
+  text-align: center;
+  line-height: 3rem;
 }
 </style>

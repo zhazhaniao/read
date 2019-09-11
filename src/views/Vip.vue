@@ -26,7 +26,7 @@
     data() {
         return {
            epub:"",
-        //    vipId:""
+          //  vipId:"",
         vipbooks:"",
         jia:10,
         }
